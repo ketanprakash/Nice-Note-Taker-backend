@@ -3,6 +3,7 @@ const express = require("express");
 const cors = require("cors");
 
 const authRoutes = require("./routes/auth.js")
+const noteRoutes = require("./routes/notes.js")
 const client = require("./configs/db.js");
 const app = express();
 app.use(express.json());
@@ -24,6 +25,7 @@ client.connect((err) => {
 })
 
 app.use("/auth", authRoutes);
+app.use("/notes", noteRoutes);
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);

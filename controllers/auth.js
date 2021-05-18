@@ -97,7 +97,12 @@ exports.signIn = (req, res) => {
             const user = data.rows[0];
             bcrypt.compare(password, user.password, function(err, result) {
                 if (result){
-                    res.status(200).send("login successful");
+                    const token = jwt.sign({email: email},process.env.SECRET_KEY);
+                    console.log(token);
+                    res.status(200).json({
+                        message: "login successful", 
+                        token: token
+                    });
                 }
                 else{
                     res.status(400).json({
